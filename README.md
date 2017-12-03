@@ -1,2 +1,1 @@
-# learnVueJS
-学习Vue
+#Vue.js_Learn_Plan

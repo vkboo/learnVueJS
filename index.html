@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUE-LEARN-PLAN</title>
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app2">
+        <span v-bind:title="hover">{{test}}</span>
+    </div>
+
+    <div id="app3" v-if="seen">
+        Now You See ME.
+    </div>
+
+    <div id="app4">
+        <ol>
+            <li v-for="did in does">
+                {{did.text}}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app5">
+        <p>{{count}}</p>
+        <a href="javascript:;" v-on:mouseenter="counter">累加</a>
+    </div>
+
+    <div id="app6">
+        <p>{{msg}}</p>
+        <input type="text" v-model="msg">
+    </div>
+
+    <div id="app7">
+        <span v-once>{{msg}}</span>
+    </div>
+
+    <div id="app8">
+        <div>{{htm}}</div>
+        <span v-html="htm"></span>
+    </div>
+
+    <div id="app9">
+        {{ccc}}
+    </div>
+
+    <div id="app10">
+        methods: {{did()}} computed: {{didc }}
+    </div>
+
+    <div id="app11">
+        <input type="text" v-model="msg">
+        <p>{{show}}</p>
+    </div>
+
+    <div id="app12">
+        {{daa}}
+        <input type="text" v-model="msg">
+    </div>
+
+    <!-- 样式相关（类名的Boolean） -->
+    <h1 id="appA" :class="{className: isActive, 'is-Error': hasError}">
+        test
+    </h1>
+
+    <!-- 将类写成一个对象 -->
+    <div id="appB" :class="clObject">
+        classObject
+    </div>
+
+    <!-- 样式的数组语法 -->
+    <div id="appC" :class="[a,b]">
+        CCCCCC
+    </div>
+
+    <!-- 样式的数组与对象混用 -->
+    <div id="appD" :class="[obj,b,{other: isOther}]">
+        DDDDDDDDD
+    </div>
+
+    <div id="appE" :style="{color: colorset}">
+        EEEEEEEEEE
+    </div>
+
+    <div id="appF" :style="styObj">
+        FFFFFFFFFF
+    </div>
+
+    <div id="appG" :style="[a,b]">
+        GGGGGGGGGG
+    </div>
+
+    <!-- /******************条件渲染************************/ -->
+    <div id="appH">
+        <span v-if="ok === 1">if</span>
+        <span v-else-if="ok === 2">elseif</span>
+        <span v-else>else</span>
+    </div>
+
+    <!-- for-in -->
+
+    <div id="appI">
+        <ul>
+            <li v-for="(item, index) in items">{{item}} --> {{index}}</li>
+        </ul>
+        <p>{{va.dd}}</p>
+        <!-- <h3 v-for="n in 10">{{n}}</h3> -->
+    </div>
+
+    <!-- todolist -->
+
+    <div id="app_todo">
+        <input type="text" v-model="thing" @keyup.enter="addList" placeholder="Type your todolist">
+        <ul>
+            <li v-for="todo in todos">{{todo.text}}
+                <a href="javascript:;" @click="close">DEL</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="appEvent">
+        <button @click="counter++">ADD</button>
+        <p>{{counter}}</p>
+        <button @click="test('Hello',$event)">TEST</button>
+        <a href="http://www.baidu.com" @click.prevent="prev">PREVENTDEFAULT</a>
+    </div>
+
+    <div id="appForm">
+        <input type="text" v-model.lazy="txt"> {{txt}}
+        <input type="checkbox" value="a" v-model="options">
+        <input type="checkbox" value="b" v-model="options">
+        <input type="checkbox" value="c" v-model="options"> 多选框{{options}}
+
+        <input name="raN" type="radio" value="1" v-model="radioM">
+        <input name="raN" type="radio" value="2" v-model="radioM"> 单选框{{radioM}}
+
+        <select name="selN" v-model="selM">
+            <option value="">请选择</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        select的值{{selM}}
+    </div>
+
+    <div id="appTemp">
+        <my-component></my-component>
+        <abc-temp></abc-temp>
+        <z-counter></z-counter>
+        <z-counter></z-counter>
+        <z-counter></z-counter>
+        <my-child msg="父传子PROPS"></my-child>
+        <my-child :msg="propData"></my-child>
+        <todo-child v-bind="todo"></todo-child>
+
+        <p>{{total}}</p>
+        <number-counter @addchildcounter="totalEvent" @click.native="nativeEvent"></number-counter>
+        <number-counter @addchildcounter="totalEvent"></number-counter>
+    </div>
+
+    <div id="appModel">
+        <my-input v-model="rmb"></my-input>
+        格式化后的数据： {{rmb}}
+        <hr>
+        <!-- <currency-input v-model="moval"></currency-input> -->
+        <!-- 第二次格式化： {{moval}} -->
+    </div>
+
+    <!-- 非父子组件通信 -->
+    <h3>非父子组件通信</h3>
+    <div id="appMsg">
+        <conponent-a></conponent-a>
+        <conponent-b></conponent-b>
+    </div>
+
+    <div id="appSlot">
+        <div ref="refname">a</div>
+        <slot-component>
+            <span>插槽内容</span>
+            哈哈
+        </slot-component>
+        <app-layout>
+            <h3 name="header">标题</h3>
+            <div>main</div>
+            <div name="footer">底部内容</div>
+        </app-layout>
+        <conponent :is="con"></conponent>
+    </div>
+
+    <!-- 过渡效果 -->
+    <div id="appAnimate">
+        <button @click="show = !show">Animate</button>
+        <transition name="fade">
+            <p v-if="show">我是过渡</p>
+        </transition>
+
+        <transition name="custom-classes-transition" enter-active-class="animated data" leave-active-class="animated bounceOutRight">
+
+
+            <div v-if="show">ANIMATE</div>
+        </transition>
+
+        <!-- 最后一条，跳过CSS检测 -->
+        <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false">
+            <p v-if="show">JavaScript钩子</p>
+        </transition>
+
+        <!-- <transition appear
+                    appear-class=""
+                    appear-active-class=""
+                    appear-to-class=""
+        >
+
+        <transition appear
+                    @before-appear=""
+                    @appear=""
+                    @after-appear=""
+                    @appear-cancelled=""
+        > -->
+
+
+        <!-- <radio-el name="选择A" select="name"></radio-el>
+            <radio-el name="选择B" select="name"></radio-el> -->
+        <label>
+            <input type="radio" name="select" value="ca" v-model="view">A</label>
+        <label>
+            <input type="radio" name="select" value="cb" v-model="view">B</label>
+        <transition name="component-fade" mode="out-in">
+            <conpoment :is="view">
+
+            </conpoment>
+        </transition>
+
+        <transition-group name="list" tag="p">
+            <span v-for="pa in params" :key="pa">
+                {{pa}}
+            </span>
+        </transition-group>
+
+        <div>
+            <button @click="add">ADD</button>
+            <button @click="remove">REMOVE</button>
+        </div>
+    </div>
+
+
+    <div id="appMixins">
+        {{from}}
+        <input v-focus type="text">
+    </div>
+
+
+    <script src="js/velocity.min.js"></script>
+    <script src="js/vue_2.5.8.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
