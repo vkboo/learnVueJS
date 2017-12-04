@@ -782,12 +782,26 @@ var appMixins = new Vue({
 })
 
 /**
+ * 利用<template>的方式注册组件
+ */
+Vue.component('temp-con', {
+    template: '#myTemp',
+    data: function() {
+        return {
+            header: 'HHHH',
+            body: 'BBBB',
+            footer: 'FFFF'
+        }
+    }
+})
+
+/**
  * 过滤器
  */
 Vue.filter('double', function (value) {
     return value * 2
 })
-Vue.filter('uppercase',function(value) {
+Vue.filter('uppercase', function (value) {
     return value.toUpperCase()
 })
 var appFilter = new Vue({
@@ -797,5 +811,10 @@ var appFilter = new Vue({
         msg: 'abc'
     }
 })
+
+
+
+
+
 
 

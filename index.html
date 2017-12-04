@@ -261,9 +261,17 @@
 
 
     <div id="appFilter">
-        {{number | double}}
-        {{msg | uppercase }}
+        {{number | double}} {{msg | uppercase }}
+        <temp-con></temp-con>
     </div>
+
+    <template id="myTemp">
+        <span>
+            <header>{{header}}</header>
+            <section>{{body}}</section>
+            <footer>{{footer}}</footer>
+        </span>
+    </template>
 
     <script src="js/velocity.min.js"></script>
     <script src="js/vue_2.5.8.js"></script>
