@@ -774,13 +774,28 @@ var appMixins = new Vue({
     mixins: [myMixins],
     directives: {
         focus: {
-            inserted: function(el) {
+            inserted: function (el) {
                 el.focus()
             }
         }
     }
 })
 
-
+/**
+ * 过滤器
+ */
+Vue.filter('double', function (value) {
+    return value * 2
+})
+Vue.filter('uppercase',function(value) {
+    return value.toUpperCase()
+})
+var appFilter = new Vue({
+    el: '#appFilter',
+    data: {
+        number: 123,
+        msg: 'abc'
+    }
+})
 
 
