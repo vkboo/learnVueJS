@@ -110,11 +110,12 @@
     <!-- for-in -->
 
     <div id="appI">
+        <h3>n in 10</h3>
         <ul>
             <li v-for="(item, index) in items">{{item}} --> {{index}}</li>
         </ul>
         <p>{{va.dd}}</p>
-        <!-- <h3 v-for="n in 10">{{n}}</h3> -->
+        <h3 v-for="n in 10">{{n}}</h3>
     </div>
 
     <!-- todolist -->
@@ -122,8 +123,8 @@
     <div id="app_todo">
         <input type="text" v-model="thing" @keyup.enter="addList" placeholder="Type your todolist">
         <ul>
-            <li v-for="todo in todos">{{todo.text}}
-                <a href="javascript:;" @click="close">DEL</a>
+            <li v-for="(todo, index) in todos">{{todo.text}}
+                <a href="javascript:;" @click="close(index)">DEL</a>
             </li>
         </ul>
     </div>
@@ -166,6 +167,7 @@
         <p>{{total}}</p>
         <number-counter @addchildcounter="totalEvent" @click.native="nativeEvent"></number-counter>
         <number-counter @addchildcounter="totalEvent"></number-counter>
+        <sndo-el :numbers="num" @sndoee="num++"></sndo-el>
     </div>
 
     <div id="appModel">
@@ -190,9 +192,9 @@
             哈哈
         </slot-component>
         <app-layout>
-            <h3 name="header">标题</h3>
-            <div>main</div>
-            <div name="footer">底部内容</div>
+            <h3 slot="header">标题</h3>
+            <div slot="main">MAIN</div>
+            <div slot="footer">底部内容</div>
         </app-layout>
         <conponent :is="con"></conponent>
     </div>

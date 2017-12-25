@@ -246,6 +246,7 @@ var appF = new Vue({
 })
 
 // 数组形式
+
 /**
  * 数组元素也是对象
  */
@@ -319,10 +320,10 @@ var appTodo = new Vue({
             this.todos.push({
                 text: this.thing
             })
-            this.thing = '';
+            this.thing = ''
         },
-        close: function () {
-            this.todos.shift(); // ???
+        close: function (index) {
+            this.todos.splice(index,1)
         }
     }
 })
@@ -342,7 +343,7 @@ var appTodo = new Vue({
  * .prevent 等同于 event.preventDefault （阻止表单跳转）
  * .capture 添加事件监听器时使用事件捕获模式 即内部元素触发的事件先在此处处理，然后才交由内部元素自身进行处理
  * .self 只有event.target是当前绑定元素时才触发
- * .once 绑定的事件将只会触发一次jjj
+ * .once 绑定的事件将只会触发一次
  */
 
 /**
@@ -406,7 +407,7 @@ var appForm = new Vue({
 
 /**
  * 修饰符
- * .lazy 在change事件时触发数据同步
+ * .lazy 在change事件时触发数据同步（默认是input事件触发）
  * .number 绑定值总是返回number类型
  * .trim 自动去除首尾空格
  */
@@ -496,13 +497,24 @@ Vue.component('number-counter', {
     }
 })
 
+var sndoEl = {
+    template: '<button @click="sndoEvent">{{numbers}}</button>',
+    props: ['numbers'],
+    methods: {
+        sndoEvent: function() {
+            this.$emit('sndoee')
+        }
+    }
+}
+
 var appTemp = new Vue({
     el: '#appTemp',
     components: {
         'abc-temp': myTemp,
         'z-counter': zCounter,
         'my-child': myChild,
-        'todo-child': todoChild
+        'todo-child': todoChild,
+        'sndo-el': sndoEl
     },
     data: {
         propData: '动态数据',
@@ -510,6 +522,7 @@ var appTemp = new Vue({
             thing: '写DSP改版',
             date: 1
         },
+        num: 0,
         total: 0
     },
     methods: {
@@ -537,14 +550,8 @@ Vue.component('my-input', {
     props: ['value'],
     methods: {
         formatRMB: function (val) {
-            // var r;
-            // if (val.indexOf('￥') === -1) {
-            //     r = '￥' + val;
-            // } else {
-            //     r = val;
-            // }
-            r = val;
-            this.$emit('input', '$' + r)
+            var result = (~val.indexOf('$') ? '' : '$') + val
+            this.$emit('input',result)
         }
     }
 })
@@ -625,7 +632,7 @@ var appMsg = new Vue({
  */
 
 Vue.component('slot-component', {
-    template: '<div><h1>模版标题</h1></div>'
+    template: '<div><slot></slot></div>'
 })
 Vue.component('app-layout', {
     template: `<div>
