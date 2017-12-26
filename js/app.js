@@ -819,6 +819,34 @@ var appFilter = new Vue({
     }
 })
 
+/**
+ * 渲染函数
+ * createElement参数？
+ * createElement与VNode
+ */
+
+Vue.component('render-con',{
+    render: function(createElement) {
+        return createElement(
+            'h' + this.level,
+            this.$slots.default
+        )
+    },
+    props: {
+        level: {
+            type: Number,
+            required: true
+        }
+    }
+})
+
+var renderApp = new Vue({
+    el: '#renderApp',
+    data: {
+        h: 1
+    }
+})
+
 
 
 
