@@ -1,15 +1,63 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import VueRouter from "vue-router"
 
-Vue.use(Router)
+import Reg from "@/components/Reg"
+import Log from "@/components/Log"
+import User from '@/components/User'
+import UserProfile from '@/components/UserProfile'
+import UserIndex from '@/components/UserIndex'
+import Index from '@/components/Index'
+import Pubg from '@/components/Pubg'
+import News from '@/components/News'
 
-export default new Router({
+import z from '@/tools/z'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      components: {
+        default: Index,
+        'pubg': Pubg
+      }
+    },
+    {
+      path: "/login/:grade",
+      component: Log
+    },
+    {
+      path: "/register",
+      component: Reg,
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/user/:id',
+      component: User,
+      children: [{
+        path: '',
+        component: UserIndex
+      }, {
+        path: 'profile',
+        component: UserProfile
+      }]
+    },
+    {
+      path: '/news/:_id',
+      component: News,
+      props: true
     }
   ]
 })
+
+router.beforeEach((to,from,next) => {
+  z.log(to.matched.some((meta) => meta.meta.requiresAuth))
+  // z.log(from)
+  // z.log(next)
+  next()
+})
+
+export { router }
